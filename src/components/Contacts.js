@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import Contact from "./Contact";
 import LayoutType from "./LayoutType";
 
@@ -7,6 +7,9 @@ export default function Contacts({
     params: { layout },
   },
 }) {
+
+  
+
   const [lists] = useState([
     { _Id: 1, img: "", name: "Chellappan" },
     { _Id: 2, img: "", name: "Test" },
