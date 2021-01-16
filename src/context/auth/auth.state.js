@@ -8,7 +8,7 @@ import axios from 'axios'
 const AuthState  = (props) =>{
 
     const initialState = {
-        isLoggedIn:true,
+        isLoggedIn:false,
         isLoading:false,
         error: null
     };

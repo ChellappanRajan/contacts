@@ -7,13 +7,10 @@ export default function Login(props) {
  const context = useContext(AuthContext);
 
  useEffect(() => { 
-   console.log('Login Context');
-  // if(context.isLoggedIn){
-  //   props.history.push('/');
-  //  }else{
-  //    props.history.push('/login');
-  //  }
- }, [context.isLoggedIn])
+  if(context.isLoggedIn){
+    props.history.push('/');
+   }
+ }, [context.isLoggedIn,props.history])
 
  const login = (e)=>{
    e.preventDefault();

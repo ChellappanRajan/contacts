@@ -1,20 +1,20 @@
-import "./App.css";
-import Header from "./components/Header";
-import Contacts from "./components/Contacts";
-import Footer from "./components/Footer";
-import CreateContact from "./components/CreateContact";
-import About from "./components/About";
-import Login from "./components/Login";
+import { Fragment } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
-  Switch,
   Route,
-  Link,
+  Switch,
 } from "react-router-dom";
-import { Fragment } from "react";
+import "./App.css";
+import About from "./components/About";
+import Contacts from "./components/Contacts";
+import CreateContact from "./components/CreateContact";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Login from "./components/Login";
 import AuthState from "./context/auth/auth.state";
 import { PrivateRoute } from "./utils/PrivateRoute";
+
 function App() {
   return (
     <Router>
@@ -23,18 +23,12 @@ function App() {
           <div className="App">
             <Header />
             <Switch>
+              <PrivateRoute exact path="/home/:layout?" component={Contacts} />
+              <PrivateRoute path="/add" component={CreateContact} />
+              <PrivateRoute component={About} exact path="/about" />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/">
                 <Redirect to="/home/grid" />
-              </Route>
-              <Route path="/home/:layout?" component={Contacts} />
-              <Route path="/add">
-                <CreateContact />
-              </Route>
-              <PrivateRoute path="/about" component={About} />
-                {/* <About /> */}
-              {/* </PrivateRoute> */}
-              <Route path="/login">
-                <Login />
               </Route>
             </Switch>
             <Footer />
