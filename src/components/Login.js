@@ -4,6 +4,12 @@ import AuthContext from '../context/auth/auth.context';
 export default function Login(props) {
  
  const [loginDetails, setLoginstate] = useState({email:'',password:''});
+
+
+ const [isValidEmail,setEmailValidState] = useState(false);
+ const [isPasswordValid,setPasswordState] = useState(false);
+
+
  const context = useContext(AuthContext);
 
  useEffect(() => { 
@@ -14,7 +20,12 @@ export default function Login(props) {
 
  const login = (e)=>{
    e.preventDefault();
-   context.login(loginDetails);
+   const {email,password} = loginDetails;
+   setEmailValidState(!email?.length);
+   setPasswordState(!password?.length);
+   if(loginDetails.email?.length > 0 && loginDetails.password?.length){
+     context.login(loginDetails);
+   }
  }
 
 
@@ -30,7 +41,7 @@ const setLoginDetails =(e)=>{
     <div className="login-container">
       <form onSubmit={login}>
         <div className="form-control">
-          <label htmlFor="email">Name</label>
+          <label htmlFor="email">Email</label>
           <input
             placeholder="Email"
             className="text-control rounded-radius"
@@ -40,6 +51,7 @@ const setLoginDetails =(e)=>{
             value={loginDetails.email}
             name="email"
           />
+          {isValidEmail && <div className="error">Please enter valid email.</div>}
         </div>
         <div className="form-control">
           <label htmlFor="password">Password</label>
@@ -52,6 +64,7 @@ const setLoginDetails =(e)=>{
             value={loginDetails.password}
             name="password"
           />
+        {isPasswordValid && <div className="error">Please enter valid password.</div>}
         </div>
         <button className="submit" type="submit">
           Submit
