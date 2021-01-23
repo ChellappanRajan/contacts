@@ -17,9 +17,11 @@ import ContactState from "./context/contact/contact.state";
 import { PrivateRoute } from "./utils/PrivateRoute";
 import {AuthContext} from './context/auth/auth.context';
 import Toaster from './components/Toaster';
+import { ToasterContext} from './context/toaster/toaster.context';
 
 function App() {
   // const context = useContext(AuthContext);
+  const toasterContext = useContext(ToasterContext)
 
   // useEffect(() => {
   //   console.log(context);
@@ -33,9 +35,11 @@ function App() {
         <ContactState>
         <Fragment>
           <div className="App">
-            <Toaster >
-              Logged In Succesfully
-            </Toaster>
+            {toasterContext?.toaster.length > 0 && toasterContext.toaster.map(({msg})=>
+              (<Toaster >
+              {msg}
+            </Toaster>))
+}
             <Header />
             <Switch>
               <PrivateRoute exact path="/home/:layout?" component={Contacts} />
@@ -52,6 +56,7 @@ function App() {
         </ContactState>
       </AuthState>
     </Router>
+    
   );
 }
 

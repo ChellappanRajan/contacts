@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ToasterState } from './context/toaster/toaster.state';
 
 ReactDOM.render(
   <React.StrictMode>
+    <ToasterState>
     <App />
+    </ToasterState>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,5 +1,7 @@
 import React,{useState,useEffect,useContext} from "react";
 import AuthContext from '../context/auth/auth.context';
+import { ToasterContext } from "../context/toaster/toaster.context";
+
 
 export default function Login(props) {
  
@@ -12,7 +14,10 @@ export default function Login(props) {
 
  const context = useContext(AuthContext);
 
+ const toasterContext = useContext(ToasterContext);
+
  useEffect(() => { 
+   console.log(toasterContext);
   if(context.isLoggedIn){
     props.history.push('/');
    }
@@ -20,12 +25,13 @@ export default function Login(props) {
 
  const login = (e)=>{
    e.preventDefault();
-   const {email,password} = loginDetails;
-   setEmailValidState(!email?.length);
-   setPasswordState(!password?.length);
-   if(loginDetails.email?.length > 0 && loginDetails.password?.length){
-     context.login(loginDetails);
-   }
+   toasterContext.showToaster({msg:'LoginSuccessFull', id:0});
+  //  const {email,password} = loginDetails;
+  //  setEmailValidState(!email?.length);
+  //  setPasswordState(!password?.length);
+  //  if(loginDetails.email?.length > 0 && loginDetails.password?.length){
+  //    context.login(loginDetails);
+  //  }
  }
 
 

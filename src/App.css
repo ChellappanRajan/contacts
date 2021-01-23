@@ -338,6 +338,13 @@ width: 100%;
   background: url(./assets/img/toaster-success.svg) no-repeat left 7px center #ffffff;
   margin-top: 2px;
   opacity: 1;
+  animation: toasterAnimation 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1; 
+}
+@keyframes toasterAnimation {
+  from {top: -100px;}
+  to {top: 25px;}
 }
 .toaster h1{
   font-size: 18px;
