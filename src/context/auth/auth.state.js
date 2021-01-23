@@ -1,9 +1,10 @@
-import {useReducer} from 'react';
+import {useReducer, useContext} from 'react';
 import AuthContext from "./auth.context";
 import reducer from './auth.reducer';
 import {LOGIN_SUCCESS,LOGIN_FAILED,LOGOUT,USERINFOSUCCESS,USERINFOFAILED} from './auth.actions';
 import axios from 'axios'
 import setToken from "../../utils/token";
+import { ToasterContext } from "../toaster/toaster.context";
 
 const AuthState  = (props) =>{
 
@@ -13,13 +14,16 @@ const AuthState  = (props) =>{
         error: null,
         userName:null
     };
-
+    
+    const context = useContext(ToasterContext)
+   
     const [state, dispatch] = useReducer(reducer, initialState);
     
     const login = async (userDetails)=>{
      try {
       const isLoggedIn = await axios.post('/api/v1/login',{...userDetails});
       localStorage.setItem('contactAppToken',isLoggedIn.data.token);
+      context.showToaster({msg:'Logged In SuccessFully', id:isLoggedIn.data.token});
       setToken(localStorage.contactAppToken);
       dispatch({type:LOGIN_SUCCESS,isLoggedIn:isLoggedIn?.data.success});
      } catch (error) {
@@ -36,6 +40,7 @@ const AuthState  = (props) =>{
 
     const getUserInfo = async ()=>{
       try {
+        setToken(localStorage.contactAppToken);
         const userInfo = await axios.get('/api/v1/auth');
         dispatch({type:USERINFOSUCCESS,userName:userInfo.data.userName});
       } catch (error) {

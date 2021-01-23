@@ -4,15 +4,20 @@ import { ToasterContext } from "../context/toaster/toaster.context";
 
 
 export default function Login(props) {
- 
+
+ const context = useContext(AuthContext);
  const [loginDetails, setLoginstate] = useState({email:'',password:''});
 
+ useEffect(() => {
+   if(localStorage.contactAppToken){
+     context.getUserInfo();
+   }
+  }, []);
 
  const [isValidEmail,setEmailValidState] = useState(false);
  const [isPasswordValid,setPasswordState] = useState(false);
 
 
- const context = useContext(AuthContext);
 
  const toasterContext = useContext(ToasterContext);
 
@@ -25,13 +30,12 @@ export default function Login(props) {
 
  const login = (e)=>{
    e.preventDefault();
-   toasterContext.showToaster({msg:'LoginSuccessFull', id:0});
-  //  const {email,password} = loginDetails;
-  //  setEmailValidState(!email?.length);
-  //  setPasswordState(!password?.length);
-  //  if(loginDetails.email?.length > 0 && loginDetails.password?.length){
-  //    context.login(loginDetails);
-  //  }
+   const {email,password} = loginDetails;
+   setEmailValidState(!email?.length);
+   setPasswordState(!password?.length);
+   if(loginDetails.email?.length > 0 && loginDetails.password?.length){
+     context.login(loginDetails);
+   }
  }
 
 

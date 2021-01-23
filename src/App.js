@@ -20,14 +20,8 @@ import Toaster from './components/Toaster';
 import { ToasterContext} from './context/toaster/toaster.context';
 
 function App() {
-  // const context = useContext(AuthContext);
+  
   const toasterContext = useContext(ToasterContext)
-
-  // useEffect(() => {
-  //   console.log(context);
-  //   // context.getUserInfo();
-  // }, []);
-
 
   return (
     <Router>
